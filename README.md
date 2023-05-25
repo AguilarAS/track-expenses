@@ -36,10 +36,10 @@ People don't use to track expenses, and every month expenses may increase, and i
 ```mermaid
 %%{init: {'theme':'dark'}}%%
 erDiagram
-    User ||--o{ expenses : manages
-    User ||--o{ CreditCard: creates
+    User ||--o{ Credit: creates
     User ||--o{ Expense: creates
-    CreditCard||--|{ Expenses: contains
+    Credit||--|{ Expenses: contains
+    Credit||--|{ CreditCardInformation: contains
 ```
 
 ### Entity Relationship Diagram
@@ -48,31 +48,48 @@ erDiagram
 %%{init: {'theme':'dark'}}%%
 erDiagram
     user ||--|| expenses : creates
-    user ||--|| credit_card : creates
+    user ||--|| credit : creates
+    user ||--|{ incomes : includes
     user {
         int id PK
         text first_name
-        text second_name
-        int income
+        text last_name
+        text email
         text password
     }
-    
-    credit_card ||--|{ credit_card_expenses : contains
-    credit_card {
+    incomes {
+        int id PK
+        int user_id FK
+        int income
+        text start_day
+        text end_day
+    }
+
+    credit {
         int id PK
         text name
-        int cutDay
-        int payDay
+        text type
         int user_id FK
 
     }
+    credit ||--|{ credit_cards_information : contains
+    credit_cards_information {
+        int id PK
+        int credit_id FK
+        int cutOff
+        int days_for_paying
+    }
+    credit ||--|{ credit_card_expenses : contains
     expenses {
+        int id PK
+        int user_id FK
         text name
         int amount
     }
     credit_card_expenses {
-        int expense_id
-        int credit_card_id
+        int id PK
+        int expense_id FK
+        int credit_card_id FK
     }
 
 ```
