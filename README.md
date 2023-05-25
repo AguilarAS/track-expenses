@@ -38,6 +38,7 @@ People don't use to track expenses, and every month expenses may increase, and i
 erDiagram
     User ||--o{ Credit: creates
     User ||--o{ Expense: creates
+    User||--|{ Income: contains
     Credit||--|{ Expenses: contains
     Credit||--|{ CreditCardInformation: contains
 ```
