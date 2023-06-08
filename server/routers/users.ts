@@ -1,6 +1,8 @@
 import { Router } from "express";
+import {PrismaClient} from "@prisma/client";
 
 const userRouter = Router();
+const prisma = new PrismaClient()
 
 userRouter.route("/").get((req, res) => { res.send("Hello user") });
 userRouter.route("/:userId").get((req, res) => { res.send("Hello user " + req.params.userId) });
